@@ -12,7 +12,7 @@
     ```
 3. Activate the virtual enviroment
     ```bash
-    source crashblog_env/Scripts/activate
+    source ./crashblog_env/Scripts/activate
     ```
 4. Install Django
     ```bash
