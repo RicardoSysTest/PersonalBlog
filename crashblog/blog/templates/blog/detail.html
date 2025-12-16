@@ -1,4 +1,55 @@
 {% extends 'core/base.html'%} {% block title %}{{post.title}}{% endblock %}
 {% block content %}
-<h1>{{ post.title }}</h1>
+<section class="hero">
+  <div class="hero-body">
+    <div class="container">
+      <section class="hero">
+        <div class="columns">
+          <div class="column is-8 is-offset-2">
+            <div class="content is medium">
+                <h2 class="subtitle is-4">
+                  {{post.created_at | date:'M-d-Y'}}
+                </h2>
+                <h1 class="title">{{ post.title }}</h1>
+                <p><strong>{{ post.intro }} </strong></p>
+                <p>{{post.body}}</p>
+
+                <hr>
+
+                <h2 class="subtitle is-4">Comments</h2>
+                <!--This came from the models Comments, we add the related_name as comments-->
+                {% for comment in post.comments.all %}
+                    <article class="media box">
+                        <div class="media-content">
+                            <strong>{{ comment.name }}</strong> <small>{{ comment.created_at | timesince }} ago</small></br>
+                            {{ comment.body }}
+                        </div>
+                    </article>
+                {% endfor %}
+
+                <!--
+                * The form.as_p will generate the HTML that we need 
+                * Add the secutiry token: {csrf_token}
+                -->
+                <form method="post" class="mb-6">
+
+                  {% csrf_token %}
+                  
+                  {{ form.as_p }}
+                  
+                  <div class="field">
+                      <div class="control">
+                        <button class="button is-success">Submit Comment</button>
+                      </div>  
+                  </div>  
+                </form>
+
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+<div class="is-divider"></div>
 {% endblock %}
