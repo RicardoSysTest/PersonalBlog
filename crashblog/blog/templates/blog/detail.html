@@ -10,6 +10,7 @@
                 <h2 class="subtitle is-4">
                   {{post.created_at | date:'M-d-Y'}}
                 </h2>
+                <p><small>Category: <a href="{% url 'category_detail' post.category.slug %}">{{ post.category }}</a></small></p>
                 <h1 class="title">{{ post.title }}</h1>
                 <p><strong>{{ post.intro }} </strong></p>
                 <p>{{post.body}}</p>
