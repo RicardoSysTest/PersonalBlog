@@ -1,20 +1,22 @@
-{% extends 'core/base.html' %} {% block content %}
+{% extends 'core/base.html' %} 
+{% block title%} Search |  {% endblock %}
+{% block content %}
 <section class="hero">
   <div class="hero-body">
     <div class="container">
       <section class="hero">
         <div class="columns">
           <div class="column is-8 is-offset-2">
+
+            
+            <div class="content is medium">
+                <h1>Search Results</h1>
+                <h3>Query "{{ query }}"</h3>
+            </div>
+
             {% for post in posts %}
             <div class="content is medium">
               <a href="{% url 'post_detail' post.category.slug post.slug %}">
-                
-                {% if post.image %}
-                  <figure class="image">
-                    <img src="{{ post.image.url }}">
-                  </figure>
-                {% endif %}
-                
                 <h2 class="subtitle is-4">
                   {{post.created_at | date:'M-d-Y'}}
                 </h2>
@@ -22,6 +24,11 @@
                 <p>{{ post.intro }}</p>
               </a>
             </div>
+
+            {% empty %}
+                <div class="content">
+                    <p>NO Result for a Given Query...</p>
+                </div>
             {% endfor %}
           </div>
         </div>

@@ -13,12 +13,25 @@ class Category(models.Model):
         return self.title
 
 class Post(models.Model):
+    
+    #Those are the Values sotre in the DB
+    ACTIVE = 'active'
+    DRAFT = 'draft'
+    
+    #Those are the values that we will see in the Frontend
+    CHOICE_STATUS = (
+        (ACTIVE,'Active'),
+        (DRAFT,'Draft'),
+    )
+
     category = models.ForeignKey(Category, related_name='posts', on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     slug = models.SlugField()
     intro = models.TextField()
     body = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=10, choices=CHOICE_STATUS, default=DRAFT)
+    image = models.ImageField(upload_to='uploads/', blank=True, null=True)
 
     #Sort the Data to display first the most recent
     class Meta:
@@ -36,3 +49,6 @@ class Comment(models.Model):
     email = models.EmailField()
     body = models.TextField()
     created_at = models.DateTimeField(auto_now_add = True)
+
+    def __str__(self):
+        return self.name
