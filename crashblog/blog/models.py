@@ -11,6 +11,10 @@ class Category(models.Model):
     
     def __str__(self):
         return self.title
+    
+    def get_absolute_url(self):
+        return '/%s/' % self.slug
+    
 
 class Post(models.Model):
     
@@ -40,6 +44,8 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return '/%s/%s/' % (self.category, self.slug)
 
 class Comment(models.Model):
 
